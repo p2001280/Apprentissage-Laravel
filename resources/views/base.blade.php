@@ -37,7 +37,6 @@ $routeName = request()->route()->getName();
     </div>
 </nav>
 <div class="container">
-    @dump(request()->route())
     @yield('content')
 </div>
     

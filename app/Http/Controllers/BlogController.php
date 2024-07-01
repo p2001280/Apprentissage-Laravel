@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogFilterRequest;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
@@ -9,29 +10,19 @@ use Illuminate\Contracts\View\View;
 
 class BlogController extends Controller
 {
-    public function index(): View
+    public function index(BlogFilterRequest $request): View
     {
-        $validator = Validator::make([
-            'title' => '',
-            'content' => 'azszaszkszkszk'
-        ]
-        , [
-          'title' => 'required|min:8',  
-          'content' => 'required|min:8'  
-        ]
-        );
-
-        dd($validator->validated());
         return view('blog.index', [
             'posts' => Post::paginate(1)
         ]);
     }
 
-    public function show(string $slug, string $id)
+    public function show(string $slug, Post $post)
     {
-        $post = Post::findOrFail($id);
+        dd($post);
+        $post = Post::findOrFail($post);
         if($post->slug != $slug) {
-            return redirect()->route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
+            return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id]);
         }
         return view('blog.show', [
             'post' => $post
