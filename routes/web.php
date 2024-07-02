@@ -20,6 +20,9 @@ Route::prefix('blog')->name('blog.')->controller(BlogController::class)->group(f
 
     Route::post('/new', 'store');
 
+    Route::get('/{post}/edit', 'edit')->name('edit');
+    Route::patch('/{post}/edit', 'update');
+
     Route::get('/{slug}-{post}', 'show')->where([
         'post' => '[0-9]+',
         'slug' => '[a-z0-9\-]+'
