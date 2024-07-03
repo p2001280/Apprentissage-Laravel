@@ -8,26 +8,34 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Hash;
 
 class BlogController extends Controller
 {
 
     public function create() {
         $post = new Post();
-        $post->title = 'Bonjour';
         return view('blog.create', [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::select('id', 'name')->get(),
+            'tags' => Tag::select('id', 'name')->get()
+        ]);
+    }
+    public function edit(Post $post) {
+        return view('blog.edit', [
+            'post' => $post,
+            'categories' => Category::select('id', 'name')->get(),
+            'tags' => Tag::select('id', 'name')->get()
         ]);
     }
 
     public function store(FormPostRequest $request) {
-        $posts = Post::create($request->validated());
-        dd($posts);
-        foreach($posts as $post) {
-            $category = $post->category->name;
-        }
+        $post = Post::create($request->validated());
+        $post->tags()->sync($request->validated('tags'));
         return redirect()
         ->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])
         ->with('success', 'L\'article a bien été sauvegardé');
@@ -40,14 +48,10 @@ class BlogController extends Controller
         ]);
     }
 
-    public function edit(Post $post) {
-        return view('blog.edit', [
-            'post' => $post
-        ]);
-    }
 
     public function update(Post $post, FormPostRequest $request) {
         $post->update($request->validated());
+        $post->tags()->sync($request->validated('tags'));
         return redirect()->route('blog.show', ['slug' => $post->slug, 'post' => $post->id])->with('success', 'L\'article a bien été modifié');
     }
 

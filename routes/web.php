@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\BlogController; 
+use App\Http\Controllers\AuthController; 
 use Illuminate\Support\Facades\Route;
 
 // Here is where you can register web routes for your application. These
@@ -12,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/', [AuthController::class, 'login'])->name('auth.login');
+// Route::post('/', [AuthController::class, 'doLogin']);
+
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'doLogin']);
+
+Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
 
 Route::prefix('blog')->name('blog.')->controller(BlogController::class)->group(function () {
     Route::get('/', 'index')->name('index');
@@ -28,3 +38,5 @@ Route::prefix('blog')->name('blog.')->controller(BlogController::class)->group(f
         'slug' => '[a-z0-9\-]+'
     ])->name('show');
 });
+
+

@@ -9,7 +9,7 @@
             <h2>{{ $post->title }}</h2>
             <p class="small">
                 @if($post->category)
-                Catégorie : {{ $post->category?->name }}
+                Catégorie : <strong>{{ $post->category?->name }}</strong> @if(!$post->tags->isEmpty()),@endif
                 @endif
                 @if(!$post->tags->isEmpty())
                     Tags :
