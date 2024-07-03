@@ -1,3 +1,79 @@
+Installation du Projet
+Prérequis
+
+Assurez-vous d'avoir les outils suivants installés sur votre machine :
+
+    PHP >= 7.4
+    Composer
+
+Étapes d'installation
+
+    Cloner le dépôt
+
+    sh
+
+git clone https://github.com/votre-utilisateur/votre-projet.git
+cd votre-projet
+
+Installer les dépendances PHP avec Composer
+
+sh
+
+composer install
+
+Créer le fichier .env
+
+Copiez le fichier .env.example en .env et configurez vos informations de base de données et autres paramètres nécessaires.
+
+sh
+
+cp .env.example .env
+
+Générer la clé d'application
+
+sh
+
+    php artisan key:generate
+
+Configuration du Débogueur Laravel
+
+Pour utiliser le débogueur Laravel, nous recommandons l'installation de Laravel Debugbar. Suivez les étapes suivantes :
+
+    Ajouter le package avec Composer
+
+    sh
+
+composer require barryvdh/laravel-debugbar --dev
+
+Publier la configuration
+
+sh
+
+    php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+
+Utilisation de la Console Laravel
+
+La console Laravel (artisan) est un outil puissant pour exécuter des commandes et gérer l'application. Quelques commandes utiles :
+
+    Lancer le serveur de développement
+
+    sh
+
+php artisan serve
+
+Exécuter les migrations
+
+sh
+
+php artisan migrate
+
+Exécuter les seeders
+
+sh
+
+php artisan db:seed
+
+
 Architecture du Projet Laravel
 Introduction
 
