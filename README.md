@@ -36,14 +36,14 @@ Le BlogController est responsable de la gestion des actions liées au blog. Il c
     edit(): Affiche le formulaire d'édition pour un article existant.
     update(): Met à jour un article existant dans la base de données.
     show(): Affiche un article spécifique basé sur son identifiant et son slug.
-
+    
 Routes
 
 Le fichier routes/web.php définit les routes pour l'application. Les principales routes pour le blog incluent :
 
-    Afficher la liste des articles.
-    Afficher le formulaire de création d'un nouvel article.
-    Sauvegarder un nouvel article.
-    Afficher le formulaire d'édition d'un article existant.
-    Mettre à jour un article existant.
-    Afficher un article spécifique basé sur son identifiant et son slug.
+    /blog (blog.index) : Route pour afficher la liste des articles.
+    /blog/new (blog.create) : Route pour afficher le formulaire de création d'un nouvel article.
+    /blog/new : Route pour sauvegarder un nouvel article.
+    /blog/{post}/edit (blog.edit) : Route pour afficher le formulaire d'édition d'un article existant.
+    /blog/{post}/edit : Route pour mettre à jour un article existant.
+    /blog/{slug}-{post} (blog.show) : Route pour afficher un article spécifique basé sur son identifiant et son slug.
