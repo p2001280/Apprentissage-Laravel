@@ -35,17 +35,8 @@ class BlogController extends Controller
 
     public function index(): View
     {
-        $data = Post::has('tags', '>=', 1)->get();
-        // $post->tags()->createMany([[
-        //     'name' => 'Tag 1'
-        // ], [
-        //     'name' => 'Tag 2'
-        // ]
-        // ]);
-        $category = Category::find(1);
-        $category->posts()->where('id', '>', '10')->get();
         return view('blog.index', [
-            'posts' => Post::paginate(1)
+            'posts' => Post::with('tags', 'category')->paginate(10)
         ]);
     }
 
